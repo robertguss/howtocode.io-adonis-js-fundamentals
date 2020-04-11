@@ -1,0 +1,11 @@
+@layout('layouts.default')
+
+@section('content')
+  <h1>Books Index</h1>
+
+  <ul>
+    @each(book in books)
+  <li>{{ book.title }} - {{ book.author }}</li>
+    @endeach
+  </ul>
+@endsection

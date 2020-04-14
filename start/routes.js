@@ -16,5 +16,7 @@
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use("Route");
 
-Route.on("/").render("welcome");
-Route.get("/books", "BookController.index");
+// Route.on("/").render("welcome");
+Route.get("/", "BookController.index");
+Route.get("books/create", "BookController.create");
+Route.post("books", "BookController.store");

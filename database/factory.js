@@ -1,4 +1,4 @@
-'use strict'
+"use strict";
 
 /*
 |--------------------------------------------------------------------------
@@ -12,10 +12,14 @@
 */
 
 /** @type {import('@adonisjs/lucid/src/Factory')} */
-// const Factory = use('Factory')
+const Factory = use("Factory");
 
-// Factory.blueprint('App/Models/User', (faker) => {
-//   return {
-//     username: faker.username()
-//   }
-// })
+Factory.blueprint("App/Models/Book", (faker) => {
+  return {
+    title: faker.sentence({ words: 5 }),
+    author: faker.name(),
+    cover_image:
+      "https://ismbook.com/wp-content/uploads/2018/12/best-philosophy-books.jpg",
+    isbn: faker.string({ length: 10, numeric: true }),
+  };
+});

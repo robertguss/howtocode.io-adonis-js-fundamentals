@@ -5,14 +5,10 @@ const { validate } = use("Validator");
 
 class BookController {
   async index({ view }) {
-    const books = [
-      { title: "Book 1", author: "John Doe" },
-      { title: "Book 2", author: "Jane Doe" },
-      { title: "Book 3", author: "Adam Smith" },
-    ];
+    const books = await Book.all();
 
     return view.render("book.index", {
-      books,
+      books: books.toJSON(),
     });
   }
 

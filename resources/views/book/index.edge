@@ -9,9 +9,25 @@
     </div>
   @endif
 
-  <ul>
-    @each(book in books)
-  <li>{{ book.title }} - {{ book.author }}</li>
-    @endeach
-  </ul>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Cover Image</th>
+        <th scope="col">Title</th>
+        <th scope="col">Author</th>
+        <th scope="col">ISBN</th>
+      </tr>
+    </thead>
+    <tbody>
+      @each(book in books)
+        <tr>
+          <td><a href="/books/{{ book.id }}"><img src="{{ book.cover_image }}" alt="{{ book.title }}" style="width: 100px;"></a></td>
+          <td scope="row"><a href="/books/{{ book.id }}">{{ book.title }}</a></td>
+          <td>{{ book.author }}</td>
+          <td>{{ book.isbn }}</td>
+        </tr>
+      @endeach
+
+    </tbody>
+  </table>
 @endsection

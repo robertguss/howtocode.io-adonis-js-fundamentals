@@ -1,0 +1,35 @@
+@layout('layouts.default')
+
+@section('content')
+  <h1>Books Index</h1>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Title</th>
+        <th scope="col">Author</th>
+        <th scope="col">Cover Image</th>
+        <th scope="col">ISBN</th>
+        <th scope="col">Available</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">{{ book.title }}</th>
+        <td>{{ book.author }}</td>
+        <td><img src="{{ book.cover_image }}" alt="{{ book.title }}" style="width: 300px;"></td>
+        <td>{{ book.isbn }}</td>
+        <td>{{ book.available }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <hr>
+  <a href="/books/{{ book.id }}/edit" class="btn btn-dark d-block float-left">Edit Book</a>
+
+  <form action="/books/{{ book.id }}?_method=DELETE" method="POST">
+    {{ csrfField() }}
+
+    <input type="submit" class="btn btn-danger d-block float-right" value="Delete Book">
+  </form>
+@endsection

@@ -1,0 +1,31 @@
+@layout('layouts.default')
+
+@section('content')
+  <h1>Edit {{ book.title }}</h1>
+
+  <form action="/books/{{ book.id }}?_method=PUT" method="POST">
+    {{ csrfField() }}
+
+    <div class="form-group">
+      <label for="">Title</label>
+      <input type="text" name="title" class="form-control" value="{{ book.title }}">
+    </div>
+
+    <div class="form-group">
+      <label for="">Author</label>
+      <input type="text" name="author" class="form-control" value="{{ book.author }}">
+    </div>
+
+    <div class="form-group">
+      <label for="">Cover Image</label>
+      <input type="text" name="cover_image" class="form-control" placeholder="image URL" value="{{ book.cover_image }}">
+    </div>
+
+    <div class="form-group">
+      <label for="">ISBN</label>
+      <input type="text" name="isbn" class="form-control" value="{{ book.isbn }}">
+    </div>
+
+    <input type="submit" value="Submit" class="btn btn-primary">
+  </form>
+@endsection

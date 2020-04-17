@@ -1,0 +1,27 @@
+@layout('layouts.default')
+
+@section('content')
+  <h1>Login</h1>
+
+  @if(old('notification'))
+    <div class="alert alert-danger">
+      {{ old('notification') }}
+    </div>
+  @endif
+
+  <form action="/login" method="POST">
+    {{ csrfField() }}
+
+    <div class="form-group">
+      <label for="">Email</label>
+      <input type="text" name="email" class="form-control">
+    </div>
+
+    <div class="form-group">
+      <label for="">Password</label>
+      <input type="password" name="password" class="form-control">
+    </div>
+
+    <input type="submit" value="Submit" class="btn btn-primary">
+  </form>
+@endsection

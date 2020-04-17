@@ -16,11 +16,27 @@
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use("Route");
 
-// Route.on("/").render("welcome");
+// Must be logged in
+Route.group(() => {
+  // Session
+  Route.get("logout", "SessionController.delete");
+
+  // Register Users
+  Route.get("register", "UserController.create");
+  Route.post("register", "UserController.store");
+
+  // Books
+  Route.get("books/create", "BookController.create");
+  Route.post("books", "BookController.store");
+  Route.get("/books/:id/edit", "BookController.edit");
+  Route.put("/books/:id", "BookController.update");
+  Route.delete("/books/:id", "BookController.destroy");
+}).middleware(["auth"]);
+
+// Books
 Route.get("/", "BookController.index");
-Route.get("books/create", "BookController.create");
-Route.post("books", "BookController.store");
 Route.get("books/:id", "BookController.show");
-Route.get("/books/:id/edit", "BookController.edit");
-Route.put("/books/:id", "BookController.update");
-Route.delete("/books/:id", "BookController.destroy");
+
+// Session
+Route.get("login", "SessionController.create");
+Route.post("login", "SessionController.store");

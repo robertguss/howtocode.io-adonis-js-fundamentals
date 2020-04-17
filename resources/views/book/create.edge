@@ -9,7 +9,7 @@
     </div>
   @endif
 
-  <form action="/books" method="POST">
+  <form action="/books" method="POST" enctype="multipart/form-data">
     {{ csrfField() }}
 
     <div class="form-group">
@@ -26,8 +26,8 @@
 
     <div class="form-group">
       <label for="">Cover Image</label>
-      <input type="text" name="cover_image" class="form-control" placeholder="image URL" value="{{ old('cover_image','') }}">
-      {{ elIf('<span class="text-danger">$self</span>', getErrorFor('cover_image'), hasErrorFor('cover_image')) }}
+      <br />
+      <input type="file" name="cover_image" />
     </div>
 
     <div class="form-group">

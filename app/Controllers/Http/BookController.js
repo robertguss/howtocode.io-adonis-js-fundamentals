@@ -1,6 +1,7 @@
 "use strict";
 
 const Book = use("App/Models/Book");
+const Helpers = use("Helpers");
 const { validate } = use("Validator");
 
 class BookController {
@@ -20,7 +21,6 @@ class BookController {
     const validation = await validate(request.all(), {
       title: "required",
       author: "required",
-      cover_image: "required",
       isbn: "required|min:10|max:10",
     });
 
@@ -29,13 +29,34 @@ class BookController {
       return response.redirect("back");
     }
 
+    const bookTitle = request.input("title");
+    const bookTitleFilePath = bookTitle.split(" ").join("-");
+
+    // File Upload
+    const coverImage = request.file("cover_image", {
+      types: ["image"],
+      size: "2mb",
+    });
+
+    await coverImage.move(Helpers.publicPath(`uploads/${bookTitleFilePath}/`), {
+      name: "cover_image.jpg",
+      overwrite: true,
+    });
+
+    if (!coverImage.moved()) {
+      const error = coverImage.error();
+      session.flash({ notification: error.message });
+      return response.redirect("back");
+    }
+
     const book = new Book();
 
     book.title = request.input("title");
     book.author = request.input("author");
-    book.cover_image = request.input("cover_image");
+    book.cover_image = `/uploads/${bookTitleFilePath}/${coverImage.fileName}`;
     book.isbn = request.input("isbn");
 
+    // Save Book to DB
     await book.save();
 
     session.flash({ notification: "Book Created" });
